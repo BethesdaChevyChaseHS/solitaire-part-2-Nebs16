@@ -31,7 +31,16 @@ public class GameState {
         //to create a new deck, you need to create all possible cards and push them onto the deck stack. 
         //Take a look at the Card.java file to see how cards are created
         //I recommend that you take a look at this resource, especially the 'iterate using for loop section': https://www.geeksforgeeks.org/iterating-over-enum-values-in-java/
+        for (Rank r : Rank.values()) {
+            //System.out.println(r);
+            for (Suit s : Suit.values()) {
+              //  System.out.println(s);
+                Card flick = new Card(s, r);
+                deck.push(flick);
 
+            }
+        }
+        
 
     }
 
@@ -47,18 +56,28 @@ public class GameState {
         //to take a new card, you want to pop it from the deck stack
         //remember, each pile has a different ammount of cards, ranging 1-7
         //note - only top card of each pile should be faceup
-
+        for (int i = 0; i < 7; i++) {
+            for (int j = i + 1; j > 0; j--) {
+                gamePiles[i].push(deck.pop());
+            }
+        }
 
     }
 
     // NEED TO IMPLEMENT
     public void drawFromDeck() {
         //this function should draw the top 3 cards from the deck, and add them to visibleCards
+        for (int i =0; i < 2; i++) {
+            visibleCards.push(deck.pop());
+        }
     }
 
     // NEED TO IMPLEMENT
     public void discardCards() {
         //takes whatever cards are remaining in the visibleCards pile and moves them to the discardPiles
+        for(int i=0; i < visibleCards.capacity(); i++) {
+            discardedCards.push(visibleCards.pop());
+        }
     }
 
     //Don't change this, used for testing
