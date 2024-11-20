@@ -56,9 +56,13 @@ public class GameState {
         //to take a new card, you want to pop it from the deck stack
         //remember, each pile has a different ammount of cards, ranging 1-7
         //note - only top card of each pile should be faceup
-        for (int i = 0; i < 7; i++) {
-            for (int j = i + 1; j > 0; j--) {
-                gamePiles[i].push(deck.pop());
+        for (int i = 0; i < gamePiles.length; i++) {
+            for (int j = 0; j <=i; j++) {
+                Card card = deck.pop();
+                if (j==i) {
+                    card.flip();
+                }
+                gamePiles[i].push(card);
             }
         }
 
@@ -67,15 +71,17 @@ public class GameState {
     // NEED TO IMPLEMENT
     public void drawFromDeck() {
         //this function should draw the top 3 cards from the deck, and add them to visibleCards
-        for (int i =0; i < 2; i++) {
-            visibleCards.push(deck.pop());
+        for (int i =0; i < 3 && !deck.isEmpty(); i++) {
+            Card card = deck.pop();
+            card.flip();
+            visibleCards.push(card);
         }
     }
 
     // NEED TO IMPLEMENT
     public void discardCards() {
         //takes whatever cards are remaining in the visibleCards pile and moves them to the discardPiles
-        for(int i=0; i < visibleCards.capacity(); i++) {
+        for (int i=0; i < visibleCards.capacity(); i++) {
             discardedCards.push(visibleCards.pop());
         }
     }
